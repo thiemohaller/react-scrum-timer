@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 interface ICountdown {
-    minutes: number;
-    seconds: number;
+    minutes: number
+    seconds: number
 }
 
 const CountDownTimer = ({ minutes = 1, seconds = 0 }: ICountdown) => {
@@ -21,15 +21,14 @@ const CountDownTimer = ({ minutes = 1, seconds = 0 }: ICountdown) => {
                 reset()
             }
             else if (time.seconds === 0) {
-                setTime({ minutes: time.minutes - 1, seconds: 59 });
+                setTime({ minutes: time.minutes - 1, seconds: 59 })
             } else {
-                setTime({ minutes: time.minutes, seconds: time.seconds - 1 });
+                setTime({ minutes: time.minutes, seconds: time.seconds - 1 })
             }
         }
-    };
+    }
 
-    // const reset = () => setTime({ minutes: time.minutes, seconds: time.seconds });
-    const reset = () => setTime({ minutes: 1, seconds: 0 });
+    const reset = () => setTime({ minutes: 1, seconds: 0 })
 
     function startOrStopTimer() {
         if (isRunning) {
@@ -39,7 +38,7 @@ const CountDownTimer = ({ minutes = 1, seconds = 0 }: ICountdown) => {
             setIsRunning(true)
             setBgColor('#20A956')
             setFailureMessage('')
-            reset();
+            reset()
         }
     }
 
@@ -59,33 +58,31 @@ const CountDownTimer = ({ minutes = 1, seconds = 0 }: ICountdown) => {
     }
 
     useEffect(() => {
-        const timerId = setInterval(() => tick(), 1000);
-        return () => clearInterval(timerId);
-    });
+        const timerId = setInterval(() => tick(), 1000)
+        return () => clearInterval(timerId)
+    })
 
     return (
-        <div style={{ backgroundColor: bgColor }}>
-            <div className="grid grid-rows-3 grid-flow-col gap-2">
-                <div className='text-white font-bold p-20 timer-custom-fontsize'>
-                    <p>{`${time.minutes.toString().padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`}</p>
-                </div>
-                <div className='text-3xl'> {failureMessage} </div>
-                <div className='justify-center sapce-evenly'>
-                    <div className="grid grid-columns-4 grid-flow-col gap-4">
-                        <button type="button" onClick={() => startOrStopTimer()}
-                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                            Start
-                        </button>
-                        <button type="button" onClick={() => pauseTimer()}
-                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                            Pause/Resume
-                        </button>
-                        <button type="button" onClick={() => stopTimer()}
-                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                            Stop
-                        </button>
-                    </div>
-                </div>
+        <div style={{ backgroundColor: bgColor }} className="grid grid-rows-4 grid-flow-col gap-4">
+            <div className="row-span-4 text-white font-bold p-20 timer-custom-fontsize">
+                <p>{`${time.minutes.toString().padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`}</p>
+            </div>
+            <div className="flex col-span-2 row-span-2 text-white text-3xl justify-center items-center">
+                <p>{failureMessage}</p>
+            </div>
+            <div className="flex row-span-2 col-span-2 items-center justify-center flex-row">
+                <button type="button" onClick={() => startOrStopTimer()}
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Start
+                </button>
+                <button type="button" onClick={() => pauseTimer()}
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Pause/Resume
+                </button>
+                <button type="button" onClick={() => stopTimer()}
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Stop
+                </button>
             </div>
         </div>
     );
