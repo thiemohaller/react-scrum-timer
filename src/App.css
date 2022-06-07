@@ -1,9 +1,13 @@
 .App {
-  text-align: center;
-  text-align: center;
-  font-size: 300px;
+    text-align: center;
+    text-align: center;
+    /* font-size: 300px; */
 }
 
 body {
-  background-color: #20a956;
+    background-color: #20a956;
+}
+
+.timer-custom-fontsize {
+    font-size: 200px;
 }

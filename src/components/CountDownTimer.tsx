@@ -43,6 +43,21 @@ const CountDownTimer = ({ minutes = 1, seconds = 0 }: ICountdown) => {
         }
     }
 
+    function pauseTimer() {
+        if (isRunning) {
+            setIsRunning(false)
+            setFailureMessage('paused timer')
+        } else {
+            setIsRunning(true)
+            setFailureMessage('resumed timer')
+        }
+    }
+
+    function stopTimer() {
+        setIsRunning(false)
+        setFailureMessage('stopped timer')
+    }
+
     useEffect(() => {
         const timerId = setInterval(() => tick(), 1000);
         return () => clearInterval(timerId);
@@ -50,14 +65,28 @@ const CountDownTimer = ({ minutes = 1, seconds = 0 }: ICountdown) => {
 
     return (
         <div style={{ backgroundColor: bgColor }}>
-            <div className='text-white font-bold'>
-                <p>{`${time.minutes.toString().padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`}</p>
+            <div className="grid grid-rows-3 grid-flow-col gap-2">
+                <div className='text-white font-bold p-20 timer-custom-fontsize'>
+                    <p>{`${time.minutes.toString().padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`}</p>
+                </div>
+                <div className='text-3xl'> {failureMessage} </div>
+                <div className='justify-center sapce-evenly'>
+                    <div className="grid grid-columns-4 grid-flow-col gap-4">
+                        <button type="button" onClick={() => startOrStopTimer()}
+                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                            Start
+                        </button>
+                        <button type="button" onClick={() => pauseTimer()}
+                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                            Pause/Resume
+                        </button>
+                        <button type="button" onClick={() => stopTimer()}
+                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                            Stop
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div className='text-4xl'> {failureMessage} </div>
-            <button type="button" onClick={() => startOrStopTimer()}
-                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                Reset/Next
-            </button>
         </div>
     );
 }
